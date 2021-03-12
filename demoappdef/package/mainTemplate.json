@@ -1,0 +1,41 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "australiaeast",
+      "allowedValues": [
+        "australiaeast"
+      ],
+      "metadata": {
+        "description": "We need a Location for the resources."
+      }
+    },
+    "storageName": {
+      "type": "string",
+      "metadata": {
+        "description": "This is the name of the storage account that hosts the function. Must be globally unique. The field can contain only lowercase letters and numbers. Name must be between 3 and 24 characters"
+      },
+      "defaultValue": ""
+    }
+  },
+  "variables": {
+    "customrpApiversion": "2018-09-01-preview",
+    "customProviderName": "public",
+    "serverFarmName": "functionPlan"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[parameters('storageName')]",
+      "apiVersion": "2018-02-01",
+      "kind": "StorageV2",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Standard_LRS"
+      }
+    }
+  ],
+  "outputs": {}
+}
